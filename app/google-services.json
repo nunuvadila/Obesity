@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "156488495546",
+    "firebase_url": "https://obecity1-2a5d5.firebaseio.com",
+    "project_id": "obecity1-2a5d5",
+    "storage_bucket": "obecity1-2a5d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156488495546:android:605e21e215712cf2152d83",
+        "android_client_info": {
+          "package_name": "com.hoodini.obesity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156488495546-svpds46r2gu9hvchlo73qnbpmprgr9o2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoodini.obesity",
+            "certificate_hash": "945ddb352d68857acc2d5d5c1011adb46c191f65"
+          }
+        },
+        {
+          "client_id": "156488495546-5opi8f1tdf30m2k2p9247uo2sqb2igoi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJb7RlRatScN8PxM6R07DaM8UwSAqjL6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156488495546-5opi8f1tdf30m2k2p9247uo2sqb2igoi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
