@@ -3,25 +3,49 @@ package com.hoodini.obesity;
 import java.io.Serializable;
 
 public class ListDataDiri implements Serializable {
-    private String Tb, Bb, Lp;
-    private String Ket;
-    public ListDataDiri(String tb, String bb, String lp, String ket){
-        this.Tb = tb;
-        this.Bb = bb;
-        this.Lp = lp;
-        this.Ket = ket;
+    private Long tb, bb, lp;
+    private String ket;
+
+    public ListDataDiri() {
     }
-    public String getTb(){
-        return Tb;
-    }
-    public String getBb(){
-        return Bb;
-    }
-    public String getLp(){
-        return Lp;
-    }
-    public String getKet() {
-        return Ket;
+    public ListDataDiri( Long bb, String ket, Long lp, Long tb){
+        this.bb = bb;
+        this.ket = ket;
+        this.lp = lp;
+        this.tb = tb;
     }
 
+
+
+    public String getKet() {
+        return ket;
+    }
+
+    public void setKet(String ket) {
+        this.ket = ket;
+    }
+
+    public Long getTb() {
+        return tb;
+    }
+
+    public void setTb(Long tb) {
+        this.tb = tb;
+    }
+
+    public Long getBb() {
+        return bb;
+    }
+
+    public void setBb(Long bb) {
+        this.bb = bb;
+    }
+
+    public Long getLp() {
+        return lp;
+    }
+
+    public void setLp(Long lp) {
+        this.lp = lp;
+    }
 }

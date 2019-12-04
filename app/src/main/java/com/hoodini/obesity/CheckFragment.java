@@ -1,16 +1,18 @@
 package com.hoodini.obesity;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 
 
 public class CheckFragment extends Fragment {
-    private String gender, name, lp, tB, bB;
+    private String gender;
     private DatabaseReference database;
     private ArrayList<ListDataDiri> listDataDiris;
 
@@ -47,7 +49,7 @@ public class CheckFragment extends Fragment {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 int selectedId = radioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = view.findViewById(selectedId);
-                Log.d("tag","radioButton.getText()"+radioButton.getText().toString());
+                Log.d("tag", "radioButton.getText()" + radioButton.getText().toString());
                 gender = radioButton.getText().toString();
             }
         });
@@ -57,25 +59,40 @@ public class CheckFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                if (gender.equals("Laki - Laki")){
-                    final Query query = database.child("tabelLaki").orderByChild("tb")
-                            .equalTo(tBadan.getText().toString());
+                if (gender.equals("Laki - Laki")) {
+                    final Query query = database.child("tabelLaki");
                     query.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Log.e("Count ", "" + dataSnapshot.getChildrenCount());
                             listDataDiris = new ArrayList<>();
-                            for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 ListDataDiri listDataDiri = ds.getValue(ListDataDiri.class);
                                 listDataDiris.add(listDataDiri);
                             }
+                            int index = 0;
+                            for (int i=0;i<listDataDiris.size();i++){
+                                if (listDataDiris.get(index).getTb().toString().equals(tBadan.getText().toString()) &&
+                                        listDataDiris.get(index).getBb().toString().equals(berat.getText().toString())&&
+                                        listDataDiris.get(index).getLp().toString().equals(lingkar.getText().toString())){
+                                    textView.setText(listDataDiris.get(index).getKet());
+                                    System.out.println(index+" "+listDataDiris.get(index).getKet());
+                                } else {
+
+                                }
+                                System.out.println(i + "Index : "+ index);
+                                index++;
+                            }
+
+//                            InputMethodManager inm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                            inm.hideSoftInputFromWindow(nama.getWindowToken(),0);
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            Log.e("The read failed: ", databaseError.getMessage());
                         }
                     });
-
                 } else {
 //                    database.child("tabelPerempuan").addValueEventListener(new ValueEventListener() {
 //                        @Override
