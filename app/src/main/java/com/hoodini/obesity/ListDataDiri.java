@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class ListDataDiri implements Serializable {
     private Long tb, bb, lp;
+    private Double kes;
     private String ket;
 
-    public ListDataDiri() {
-    }
-    public ListDataDiri( Long bb, String ket, Long lp, Long tb){
+    public ListDataDiri() { }
+    public ListDataDiri( Long bb, String ket, Long lp, Long tb, Double kes){
         this.bb = bb;
         this.ket = ket;
         this.lp = lp;
         this.tb = tb;
+        this.kes = kes;
     }
-
 
 
     public String getKet() {
@@ -47,5 +47,13 @@ public class ListDataDiri implements Serializable {
 
     public void setLp(Long lp) {
         this.lp = lp;
+    }
+
+    public Double getKes() {
+        return kes;
+    }
+
+    public void setKes(Double kes) {
+        this.kes = kes;
     }
 }

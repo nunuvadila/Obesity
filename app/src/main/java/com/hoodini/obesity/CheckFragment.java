@@ -12,13 +12,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +28,7 @@ import java.util.ArrayList;
 
 
 public class CheckFragment extends Fragment {
-    private String gender;
+    private String gender, Kesimpulan;
     private DatabaseReference database;
     private ArrayList<ListDataDiri> listDataDiris;
 
@@ -44,6 +42,7 @@ public class CheckFragment extends Fragment {
         final EditText berat = view.findViewById(R.id.editBeratBadan);
         final EditText lingkar = view.findViewById(R.id.editLingkar);
         final RadioGroup radioGroup = view.findViewById(R.id.gender);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -64,28 +63,41 @@ public class CheckFragment extends Fragment {
                     query.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Log.e("Count ", "" + dataSnapshot.getChildrenCount());
                             listDataDiris = new ArrayList<>();
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 ListDataDiri listDataDiri = ds.getValue(ListDataDiri.class);
                                 listDataDiris.add(listDataDiri);
                             }
                             int index = 0;
-                            for (int i=0;i<listDataDiris.size();i++){
+                            for (int i = 0; i < listDataDiris.size(); i++) {
                                 if (listDataDiris.get(index).getTb().toString().equals(tBadan.getText().toString()) &&
-                                        listDataDiris.get(index).getBb().toString().equals(berat.getText().toString())&&
-                                        listDataDiris.get(index).getLp().toString().equals(lingkar.getText().toString())){
-                                    textView.setText(listDataDiris.get(index).getKet());
+                                        listDataDiris.get(index).getBb().toString().equals(berat.getText().toString()) &&
+                                        listDataDiris.get(index).getLp().toString().equals(lingkar.getText().toString())) {
+                                    double IMT = listDataDiris.get(index).getKes();
                                     System.out.println(index+" "+listDataDiris.get(index).getKet());
+                                    if (IMT < 18.5){
+                                        Kesimpulan = "Kurus (underweight)";
+                                    }else if (IMT >= 18.5 && IMT < 25.0){
+                                        Kesimpulan = "Normal (ideal)";
+                                    }else if (IMT >= 25.0 && IMT < 30.0){
+                                        Kesimpulan = "Kegemukan (overweight)";
+                                    }else if (IMT >= 30.0 && IMT < 35.0){
+                                        Kesimpulan = "Obesitas Tingkat 1";
+                                    }else if (IMT >= 35.0 && IMT < 40.0){
+                                        Kesimpulan = "Obesitas Tingkat 2";
+                                    } else if (IMT >= 40.0){
+                                        Kesimpulan = "Obesitas Tingkat 3";
+                                    }
+                                    textView.setText(listDataDiris.get(index).getKet() + " " + Kesimpulan);
                                 } else {
 
                                 }
-                                System.out.println(i + "Index : "+ index);
+//                                System.out.println(i + "Index : " + index);
                                 index++;
                             }
 
-//                            InputMethodManager inm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                            inm.hideSoftInputFromWindow(nama.getWindowToken(),0);
+                            InputMethodManager inm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inm.hideSoftInputFromWindow(nama.getWindowToken(), 0);
                         }
 
                         @Override
@@ -93,22 +105,55 @@ public class CheckFragment extends Fragment {
                             Log.e("The read failed: ", databaseError.getMessage());
                         }
                     });
-                } else {
-//                    database.child("tabelPerempuan").addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()){
-//                                ListDataDiri listDataDiri = noteDataSnapshot.getValue(ListDataDiri.class);
-//                                listDataDiris.add(listDataDiri);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//                            System.out.println(databaseError.getDetails()+" "+databaseError.getMessage());
-//                        }
-//                    });
+                } else if(gender.equals("Perempuan")){
+                    final Query query = database.child("tabelPerempuan");
+                    query.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            listDataDiris = new ArrayList<>();
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                ListDataDiri listDataDiri = ds.getValue(ListDataDiri.class);
+                                listDataDiris.add(listDataDiri);
+                            }
+                            int index = 0;
+                            for (int i = 0; i < listDataDiris.size(); i++) {
+                                if (listDataDiris.get(index).getTb().toString().equals(tBadan.getText().toString()) &&
+                                        listDataDiris.get(index).getBb().toString().equals(berat.getText().toString()) &&
+                                        listDataDiris.get(index).getLp().toString().equals(lingkar.getText().toString())) {
+                                    double IMT = listDataDiris.get(index).getKes();
+                                    System.out.println(index+" "+listDataDiris.get(index).getKet());
+                                    if (IMT < 18.5){
+                                        Kesimpulan = "Kurus (underweight)";
+                                    }else if (IMT >= 18.5 && IMT < 25.0){
+                                        Kesimpulan = "Normal (ideal)";
+                                    }else if (IMT >= 25.0 && IMT < 30.0){
+                                        Kesimpulan = "Kegemukan (overweight)";
+                                    }else if (IMT >= 30.0 && IMT < 35.0){
+                                        Kesimpulan = "Obesitas Tingkat 1";
+                                    }else if (IMT >= 35.0 && IMT < 40.0){
+                                        Kesimpulan = "Obesitas Tingkat 2";
+                                    } else if (IMT >= 40.0){
+                                        Kesimpulan = "Obesitas Tingkat 3";
+                                    }
+                                    textView.setText(listDataDiris.get(index).getKet() + " " + Kesimpulan);
+                                } else {
+
+                                }
+                                index++;
+                            }
+
+                            InputMethodManager inm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            inm.hideSoftInputFromWindow(nama.getWindowToken(), 0);
+                        }
+
+                        //
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("The read failed: ", databaseError.getMessage());
+                        }
+                    });
                 }
+
 //                name = nama.getText().toString();
 //                tB = tBadan.getText().toString();
 //                bB = berat.getText().toString();

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         break;
                     case R.id.check:
-                        fragment = new CheckFragment();
+                        fragment = new CheckFragmentV2();
                         break;
                     case R.id.history:
                         fragment = new HistoryFragment();

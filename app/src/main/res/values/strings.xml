@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Obesity</string>
+    <array name="images">
+        <item>@drawable/news_obesity</item>
+        <item>@drawable/news_makanan</item>
+        <item>@drawable/news_junk</item>
+        <item>@drawable/news_kanker</item>
+    </array>
+    <array name="judul_card">
+        <item>Obesitas</item>
+        <item>Ini Makanan Sehat yang Perlu Dikonsumsi Setiap Hari</item>
+        <item>Trik Banyak Makan Tanpa Obesitas</item>
+        <item>Harus Tahu, Ini Alasannya Obesitas Bisa Memicu Kanker</item>
+    </array>
+
 </resources>

@@ -30,12 +30,14 @@
             android:layout_height="wrap_content"
             android:text="Nama :"
             style="@style/TextAppearance.AppCompat.Subhead"/>
+
         <EditText
             android:id="@+id/editNama"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Masukan Nama Anda"
-            />
+            android:inputType="textPersonName"
+            android:imeOptions="actionNext" />
     </LinearLayout>
 
     <LinearLayout
@@ -92,7 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="2"
-            android:inputType="number" />
+            android:inputType="number"
+            android:imeOptions="actionNext"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,6 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="2"
+            android:imeOptions="actionNext"
             android:inputType="number" />
         <TextView
             android:id="@+id/kg"
@@ -147,6 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="2"
+            android:imeOptions="actionDone"
             android:inputType="number" />
         <TextView
             android:layout_width="wrap_content"
